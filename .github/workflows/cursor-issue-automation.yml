@@ -10,8 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Call Cursor Webhook
+        env:
+          # 1. Safely parse the JSON into the runner's environment first
+          PAYLOAD: ${{ toJson(github.event) }}
+          # 2. Pull the secret into the environment
+          CURSOR_TOKEN: ${{ secrets.CURSOR_WEBHOOK_TOKEN }}
         run: |
+          # 3. Use double quotes and environment variables to prevent syntax collisions
           curl -X POST "https://api2.cursor.sh/automations/webhook/7c0e9dab-abf5-4bd2-81ac-47db6c75f5b7" \
-          -H "Authorization: ${{ secrets.CURSOR_WEBHOOK_TOKEN }}" \
+          -H "Authorization: $CURSOR_TOKEN" \
           -H "Content-Type: application/json" \
-          -d '${{ toJson(github.event) }}'
+          -d "$PAYLOAD"
