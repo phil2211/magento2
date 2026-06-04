@@ -86,5 +86,5 @@ var config = {
 require(['jquery'], function ($) {
     'use strict';
 
-    $.noConflict();
+    $.noConflict(true);
 });
