@@ -717,16 +717,10 @@ define([
         ],
         'validate-number-range': [
             function (value, param) {
-                var numValue, isNumeric, dataAttrRange, result, range, m;
+                var numValue, dataAttrRange, result, range, m;
 
                 if (utils.isEmptyNoTrim(value)) {
                     return true;
-                }
-
-                isNumeric = /^(?:\d+\.?\d*|\.\d+)$/.test(value);
-
-                if (!isNumeric) {
-                    return false;
                 }
 
                 numValue = utils.parseNumber(value);
