@@ -1,0 +1,26 @@
+{
+  "name": "magento2-dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "install": "bash .cursor/install.sh",
+  "start": "bash .cursor/start-services.sh",
+  "ports": [
+    {
+      "name": "storefront",
+      "port": 8082
+    },
+    {
+      "name": "opensearch",
+      "port": 9200
+    }
+  ],
+  "terminals": [
+    {
+      "name": "web",
+      "command": "php -S 127.0.0.1:8082 -t pub/ phpserver/router.php",
+      "description": "Magento storefront and admin (PHP built-in server with rewrite router)"
+    }
+  ]
+}
