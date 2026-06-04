@@ -1,0 +1,17 @@
+name: Trigger Cursor Agent
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  trigger-cursor:
+    # Only run if the issue is labeled 'auto-fix'
+    if: github.event.label.name == 'auto-fix'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Cursor Webhook
+        run: |
+          curl -X POST "https://api2.cursor.sh/automations/webhook/7c0e9dab-abf5-4bd2-81ac-47db6c75f5b7"
+          -H "Authorization: ${{ secrets.CURSOR_WEBHOOK_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '${{ toJson(github.event) }}'
