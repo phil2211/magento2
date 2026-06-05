@@ -120,6 +120,23 @@
 //  ---------------------------------------------
 
 .adminhtml-auth-login {
+    .field-password {
+        .admin__control-addon {
+            width: 100%;
+        }
+
+        .action-show-password {
+            background: transparent;
+            cursor: pointer;
+            padding: 0 1rem;
+
+            &:focus {
+                outline: 1px dotted @color-blue-pure;
+                outline-offset: -2px;
+            }
+        }
+    }
+
     .form-actions {
         display: table;
         margin-top: -2rem;

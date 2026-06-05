@@ -11,6 +11,7 @@
     <section name="AdminLoginFormSection">
         <element name="username" type="input" selector="#username"/>
         <element name="password" type="input" selector="#login"/>
+        <element name="showPassword" type="button" selector="[data-role='show-password']"/>
         <element name="signIn" type="button" selector=".actions .action-primary" timeout="30"/>
         <element name="forgotPasswordLink" type="button" selector=".action-forgotpassword" timeout="10"/>
         <element name="loginBlock" type="block" selector=".adminhtml-auth-login"/>
