@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright 2026 Adobe
+ * All Rights Reserved.
+ */
+declare(strict_types=1);
+
+namespace Magento\Customer\Model\Validator;
+
+use Magento\Customer\Model\Customer;
+use Magento\Framework\Validator\AbstractValidator;
+
+/**
+ * Customer email field validator.
+ */
+class Email extends AbstractValidator
+{
+    /** Matches customer_entity.email varchar(255). */
+    private const MAX_EMAIL_LENGTH = 255;
+
+    /**
+     * Validate customer email length.
+     *
+     * @param Customer $customer
+     * @return bool
+     */
+    public function isValid($customer)
+    {
+        $email = $customer->getEmail();
+        if ($email !== null && mb_strlen($email) > self::MAX_EMAIL_LENGTH) {
+            $this->_addMessages([['email' => __('"%1" uses too many characters.', __('Email'))]]);
+        }
+
+        return count($this->_messages) == 0;
+    }
+}

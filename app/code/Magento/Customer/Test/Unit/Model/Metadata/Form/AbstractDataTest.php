@@ -336,6 +336,14 @@ class AbstractDataTest extends TestCase
                     // @codingStandardsIgnoreEnd
                 ]
             ],
+            [
+                'abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.0123456789@abcdefghijklmnopqrstuvwxyz.'
+                . 'abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.'
+                . 'abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxy.com',
+                'Email',
+                'email',
+                ['"Email" uses too many characters.']
+            ],
             ['1234', 'mylabel', 'url', ['"mylabel" is not a valid URL.']],
             ['http://.com', 'mylabel', 'url', ['"mylabel" is not a valid URL.']],
             [

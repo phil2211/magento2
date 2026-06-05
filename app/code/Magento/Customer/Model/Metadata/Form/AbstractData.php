@@ -350,6 +350,9 @@ abstract class AbstractData
                     }
                     break;
                 case 'email':
+                    if (mb_strlen($value) > 255) {
+                        return [__('"%1" uses too many characters.', $label)];
+                    }
                     /**
                     __("'%value%' appears to be a DNS hostname but the given punycode notation cannot be decoded")
                     __("Invalid type given. String expected")
