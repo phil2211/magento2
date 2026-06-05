@@ -37,15 +37,31 @@
                 <span><?= $block->escapeHtml(__('Password')) ?></span>
             </label>
             <div class="admin__field-control">
-                <input id="login"
-                       class="admin__control-text"
-                       type="password"
-                       name="login[password]"
-                       data-validate="{required:true}"
-                       value=""
-                       placeholder="<?= $block->escapeHtmlAttr(__('password')) ?>"
-                       autocomplete="off"
-                    />
+                <div class="admin__control-addon">
+                    <input id="login"
+                           class="admin__control-text"
+                           type="password"
+                           name="login[password]"
+                           data-validate="{required:true}"
+                           value=""
+                           placeholder="<?= $block->escapeHtmlAttr(__('password')) ?>"
+                           autocomplete="off"
+                        />
+                    <button type="button"
+                            class="action-show-password admin__addon-suffix"
+                            data-role="show-password"
+                            aria-controls="login"
+                            aria-pressed="false"
+                            aria-label="<?= $block->escapeHtmlAttr(__('Show password')) ?>"
+                            title="<?= $block->escapeHtmlAttr(__('Show password')) ?>"
+                            data-show-label="<?= $block->escapeHtmlAttr(__('Show')) ?>"
+                            data-hide-label="<?= $block->escapeHtmlAttr(__('Hide')) ?>"
+                            data-show-password-label="<?= $block->escapeHtmlAttr(__('Show password')) ?>"
+                            data-hide-password-label="<?= $block->escapeHtmlAttr(__('Hide password')) ?>"
+                            data-mage-init='{"Magento_Backend/js/password-visibility-toggle": {"passwordSelector": "#login"}}'>
+                        <span data-role="show-password-label"><?= $block->escapeHtml(__('Show')) ?></span>
+                    </button>
+                </div>
             </div>
         </div>
         <?= $block->getChildHtml('form.additional.info') ?>
