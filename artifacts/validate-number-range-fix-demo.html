@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>validate-number-range negative values fix demo</title>
+    <style>
+        body { font-family: sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+        .pass { color: #0a7; }
+        .fail { color: #c00; }
+        code { background: #f4f4f4; padding: 0.1rem 0.3rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>validate-number-range: negative values</h1>
+    <p>Issue scenario: value <code>-5</code> with range <code>-10.00-100.00</code></p>
+    <table>
+        <thead>
+            <tr><th>Implementation</th><th>Result</th><th>Expected</th></tr>
+        </thead>
+        <tbody id="results"></tbody>
+    </table>
+    <script>
+        function validate(value, param, allowNegativePrefix) {
+            if (value === '' || value == null) {
+                return true;
+            }
+
+            const pattern = allowNegativePrefix
+                ? /^-?(?:\d+\.?\d*|\.\d+)$/
+                : /^(?:\d+\.?\d*|\.\d+)$/;
+            const isNumeric = pattern.test(value);
+
+            if (!isNumeric) {
+                return false;
+            }
+
+            const numValue = parseFloat(value);
+            const dataAttrRange = /^(-?[\d.,]+)?-(-?[\d.,]+)?$/;
+            const m = dataAttrRange.exec(param);
+
+            if (!m) {
+                return true;
+            }
+
+            const from = m[1] === '' ? null : parseFloat(m[1]);
+            const to = m[2] === '' ? null : parseFloat(m[2]);
+
+            return (from === null || numValue >= from) && (to === null || numValue <= to);
+        }
+
+        const value = '-5';
+        const range = '-10.00-100.00';
+        const rows = [
+            ['Before fix (ACP2E-3867 regex)', validate(value, range, false), false],
+            ['After fix (allows leading minus)', validate(value, range, true), true]
+        ];
+
+        const tbody = document.getElementById('results');
+        rows.forEach(([label, result, expected]) => {
+            const tr = document.createElement('tr');
+            const ok = result === expected;
+            tr.innerHTML =
+                '<td>' + label + '</td>' +
+                '<td class="' + (ok ? 'pass' : 'fail') + '">' + result + '</td>' +
+                '<td>' + expected + '</td>';
+            tbody.appendChild(tr);
+        });
+    </script>
+</body>
+</html>
