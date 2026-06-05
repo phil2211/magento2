@@ -149,7 +149,11 @@ define([
             });
 
             it('should return true for value within negative range', function () {
-                expect(rules['validate-number-range'].handler('-5', '-10--1')).toBe(false);
+                expect(rules['validate-number-range'].handler('-5', '-10--1')).toBe(true);
+            });
+
+            it('should return true for negative value within decimal range', function () {
+                expect(rules['validate-number-range'].handler('-5', '-10.00-100.00')).toBe(true);
             });
 
             it('should return false for value outside negative range', function () {
